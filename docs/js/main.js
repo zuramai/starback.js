@@ -1,6 +1,5 @@
 const canvas = document.getElementById('canvas')
-const starback = new Starback({
-    canvas,
+const starback = new Starback(canvas,{
     width: canvas.parentElement.clientWidth,
     height: canvas.parentElement.clientHeight,
     speed: 5,

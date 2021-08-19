@@ -2,10 +2,10 @@
 export default class Starback {
     /**
      * Starback library
-     * @param {Object} args 
+     * @param {HTMLElement|string} Canvas element or the selector
+     * @param {Object} options 
      */
-    constructor({ 
-        canvas, 
+    constructor(canvas, { 
         width,
         height,
         speed = .5, 
@@ -19,7 +19,8 @@ export default class Starback {
         frequency = 10,
         spread = 1,
         randomOpacity = false,
-        backgroundColor = "#ccc"
+        backgroundColor = "#ccc",
+        showFps = false
     }) {
         this.canvas = canvas instanceof HTMLElement ? canvas : document.querySelector(canvas) 
         /** @type {CanvasRenderingContext2D} */ this.ctx = this.canvas.getContext('2d')
@@ -36,7 +37,7 @@ export default class Starback {
         this.maxStar = maxStar
         this.slope = slope
         this.starSize = starSize
-        this.showFps = true
+        this.showFps = showFps
         this.backgroundColor = backgroundColor
         this.distanceX = distanceX
         this.frequency = frequency
