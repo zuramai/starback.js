@@ -2,7 +2,7 @@
 
 ## Getting Started
 You can use starback.js directly with `<script>` tag or import syntax.
-- With <script> tag
+- With `<script>` tag
   ```html
   # Using CDN
   <script src="https://unpkg.com/starback@1.0.0/dist/starback.js"></script>
@@ -43,8 +43,8 @@ You can check the more options in [Options section](#options)
 ## Options
   | Key         | Type | Description | Required | Default Value |
   | ----------- | ---- | ----------- | -------- | ------------- |
-  | width | Number | Canvas width to set | no | default canvas size |
-  | height | Number | Canvas height to set | no | default canvas size |
+  | width | Number | Canvas width to set | no | 800 |
+  | height | Number | Canvas height to set | no | 600 |
   | backgroundColor | String&#124;Array | Color of the background, use string for solid color, or array of colors for linear gradient | no | #ccc |
   | directionY | Number | The direction the star to move vertically (1 = to bottom, 0 = to top)  | no | 1 |
   | directionX | Number | The direction the star to move vertically (1 = to right, 0 = to left) | no | 1 |
