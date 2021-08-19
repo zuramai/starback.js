@@ -31,9 +31,9 @@ body {
 }
 #hero .content h1 {
     text-align: center;
-    font-size: 4rem;
+    font-size: clamp(2rem, 5vw, 4rem);
     color: white;
-    width: max(600px, 60vw);
+    width: clamp(300px, 60vw, 80%);
     margin-bottom: 2rem;
     opacity: 0;
     animation: goUp 1s cubic-bezier(0, 0.55, 0.45, 1) forwards ;
