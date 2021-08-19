@@ -9,7 +9,7 @@ export default class Starback {
         width,
         height,
         speed = .5, 
-        starColor = "rgba(200,200,200,.2)", 
+        starColor = ["#fb00ff", "#00dde0"], 
         maxStar = 200,
         starSize = 100,
         directionY = 1, // 1 = top-to-bottom, 2 = bottom-to-top
@@ -114,13 +114,16 @@ export default class Starback {
             this.behindCallbacks.forEach(cb => cb(ctx))
 
             // draw the stars
-            let starGradient = this.ctx.createLinearGradient(0,0,this.canvas.width,this.canvas.height)
-            starGradient.addColorStop(0,"hsla(299, 100%, 50%, 1)")
-            starGradient.addColorStop(1,"hsla(181, 100%, 44%, 1)")
+            let starColor
+            if(typeof this.starColor == 'object') {
+                starColor = this.ctx.createLinearGradient(0,0,this.canvas.width,this.canvas.height)
+                this.starColor.forEach((color,index) => starColor.addColorStop(index/this.starColor.length,color))
+            }else starColor = this.starColor
+
 
             // pathway with berzier curve
             this.ctx.save()
-            this.ctx.strokeStyle = starGradient
+            this.ctx.strokeStyle = starColor
             this.ctx.beginPath();
             this.ctx.moveTo(star.start.x, star.start.y)
             this.ctx.setLineDash([this.starSize,star.startPoint * this.frequency]);
