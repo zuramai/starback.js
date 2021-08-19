@@ -11,6 +11,12 @@ You can use starback.js directly with `<script>` tag or import syntax.
   <script src="PATH_TO_YOUR_DIST_FOLDER/starback.js"></script>
   ```
 - With import
+  
+  Install via NPM first:
+  ```bash
+  npm install starback
+  ```
+  and then
   ```js
   import Starback from 'starback'
   ```
