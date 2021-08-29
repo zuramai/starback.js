@@ -101,14 +101,6 @@ export default class Starback {
     draw() {
         this.ctx.strokeStyle = "white"
         this.stars.forEach(star => {
-            // Starts and ending point
-            // this.ctx.beginPath()
-            // this.ctx.fillStyle="red"
-            // this.ctx.arc(star.start.x, star.start.y, 20, 0, Math.PI * 2)
-            // this.ctx.arc(star.end.x, star.end.y, 20, 0, Math.PI * 2)
-            // this.ctx.fill()
-            // this.ctx.closePath()
-            
 
             // Add to front of stars with callback
             this.behindCallbacks.forEach(cb => cb(ctx))
@@ -189,6 +181,9 @@ export default class Starback {
     }
     addToFront(cb) {
         this.frontCallbacks.push(cb)
+    }
+    addToFront(cb) {
+        this.behindCallbacks.push(cb)
     }
     generateStar(amount) {
         for(let i = 0; i < amount; i++) {
