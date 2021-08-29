@@ -14,7 +14,6 @@ const starback = new Starback(canvas,{
 starback.generateStar(20)
 let mountain = new Image()
 mountain.src = "images/mountain2.png"
-console.log(mountain.height)
 
 mountain.onload = () => {
     starback.addToFront(ctx => {
@@ -31,5 +30,3 @@ mountain.onload = () => {
             )
     })
 }
-console.log(starback.frontCallbacks)
-console.log(starback.stars)

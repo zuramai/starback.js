@@ -207,7 +207,7 @@ export default class Starback {
     addToFront(cb) {
         this.frontCallbacks.push(cb)
     }
-    addToFront(cb) {
+    addToBehind(cb) {
         this.behindCallbacks.push(cb)
     }
     generateStar(amount) {
