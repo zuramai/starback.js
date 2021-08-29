@@ -1,9 +1,9 @@
 {
   "name": "starback",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create a beautiful star falling animation for HTML5 background",
   "main": "src/index.js",
-  "homepage": "https://github.com/owner/project#readme",
+  "homepage": "https://github.com/zuramai/starback.js#readme",
   "scripts": {
     "build": "webpack --mode production",
     "watch": "webpack --mode development --watch",
