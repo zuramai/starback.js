@@ -212,7 +212,7 @@ export default class Starback {
   render(timestamp) {
     if (!this.lastCalledTime) this.lastCalledTime = timestamp
 
-    let deltaTime = this.lastCalledTime - timestamp
+    let deltaTime = timestamp - this.lastCalledTime
     this.fps = Math.round(1000 / deltaTime)
     this.lastCalledTime = timestamp
 
