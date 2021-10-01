@@ -8,7 +8,7 @@ You can use starback.js directly with `<script>` tag or import syntax.
 
   ```html
   # Using CDN
-  <script src="https://unpkg.com/starback@1.0.0/dist/starback.js"></script>
+  <script src="https://unpkg.com/starback@1.1.0/dist/starback.js"></script>
 
   # Using downloaded files
   <script src="PATH_TO_YOUR_DIST_FOLDER/starback.js"></script>
