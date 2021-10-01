@@ -1,0 +1,6 @@
+# Tools
+.vscode
+
+# Ignore artifacts:
+/dist
+/build

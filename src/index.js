@@ -1,2 +1,2 @@
-import Starback from "./starback"
+import Starback from './starback'
 export default Starback
