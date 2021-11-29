@@ -1,1 +1,129 @@
-!function(t,s){"object"==typeof exports&&"object"==typeof module?module.exports=s():"function"==typeof define&&define.amd?define([],s):"object"==typeof exports?exports.Starback=s():t.Starback=s()}(self,(function(){return(()=>{"use strict";var t={d:(s,e)=>{for(var i in e)t.o(e,i)&&!t.o(s,i)&&Object.defineProperty(s,i,{enumerable:!0,get:e[i]})},o:(t,s)=>Object.prototype.hasOwnProperty.call(t,s)},s={};t.d(s,{default:()=>i});const e={width:800,height:600,speed:.5,starColor:["#fb00ff","#00dde0"],maxStar:200,starSize:100,directionY:1,directionX:1,distanceX:.1,slope:{x:1,y:1},frequency:10,spread:1,randomOpacity:!1,backgroundColor:"#ccc",showFps:!1},i=class{static DefaultConfig=e;constructor(t,s={}){this.canvas=t instanceof HTMLElement?t:document.querySelector(t),this.ctx=this.canvas.getContext("2d"),this.mergeConfig(s),this.repeat=0,this.stars=[],this.frontCallbacks=[],this.behindCallbacks=[],this.fps=0,this.lastCalledTime=0,this.lastGenerated=0,this.init()}init(){this.canvas.setAttribute("width",this.width),this.canvas.setAttribute("height",this.height),requestAnimationFrame((t=>this.render(t))),console.log(this.width,this.height)}update(){this.stars.map(((t,s)=>{t.progress+=t.speed}))}mergeConfig(t){const s=Object.assign(e,t);this.width=s.width,this.height=s.height,this.speed=s.speed,this.directionY=-1*s.directionY,this.directionX=s.directionX,this.starColor=s.starColor,this.maxStar=s.maxStar,this.slope=s.slope,this.starSize=s.starSize,this.showFps=s.showFps,this.backgroundColor=s.backgroundColor,this.distanceX=s.distanceX,this.frequency=s.frequency,this.randomOpacity=s.randomOpacity,this.spread=s.spread}setBackground(){let t;"string"==typeof this.backgroundColor?t=this.backgroundColor:"object"==typeof this.backgroundColor&&(t=this.ctx.createLinearGradient(this.canvas.width/2,0,this.canvas.width/2,this.canvas.height),this.backgroundColor.forEach(((s,e)=>{t.addColorStop(e/this.backgroundColor.length,s)}))),this.ctx.fillStyle=t,this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height)}randomNumber(t,s){return Math.floor(Math.random()*(s-t)+1)+t}draw(){this.ctx.strokeStyle="white",this.stars.forEach((t=>{let s;this.behindCallbacks.forEach((t=>t(ctx))),"object"==typeof this.starColor?(s=this.ctx.createLinearGradient(0,0,this.canvas.width,this.canvas.height),this.starColor.forEach(((t,e)=>s.addColorStop(e/this.starColor.length,t)))):s=this.starColor,this.ctx.save(),this.ctx.strokeStyle=s,this.ctx.beginPath(),this.ctx.moveTo(t.start.x,t.start.y),this.ctx.setLineDash([this.starSize,t.startPoint*this.frequency]),this.ctx.lineDashOffset=this.directionY*(t.progress+t.length),this.ctx.quadraticCurveTo(t.curve.x,t.curve.y,t.end.x,t.end.y),this.ctx.stroke(),this.ctx.closePath(),this.ctx.restore(),this.frontCallbacks.forEach((t=>t(this.ctx))),this.showFps&&this.drawFps()}))}generateRandomStar(){const t=this.randomNumber(-20,this.canvas.width),s=t<=0?this.randomNumber(0,this.canvas.height):0,e=this.starSize,i=t+(this.canvas.width*this.distanceX+this.spread*t*this.directionX),a=i-t,h=this.canvas.height;return this.stars.push({x:t,y:s,length:h,height:e,progress:0,speed:this.speed+Math.random()/5,lineDash:this.randomNumber(50,100),filter:{opacity:this.randomArr([this.randomNumber(20,100)+"%",!1])},start:{x:t,y:s},curve:{x:t+a*this.slope.x,y:s+this.canvas.height*this.slope.y},startPoint:this.randomNumber(10,100),end:{x:i,y:this.canvas.height}}),this.stars}addToFront(t){this.frontCallbacks.push(t)}addToBehind(t){this.behindCallbacks.push(t)}generateStar(t){for(let s=0;s<t;s++)this.generateRandomStar()}drawFps(){this.ctx.fillStyle="white",this.ctx.fillText(`${this.fps} fps`,10,10)}render(t){this.lastCalledTime||(this.lastCalledTime=t);let s=t-this.lastCalledTime;this.fps=Math.round(1e3/s),this.lastCalledTime=t,this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height),this.setBackground(),this.draw(),this.update(),requestAnimationFrame((t=>this.render(t)))}randomArr(t){return t[Math.floor(Math.random()*t.length)]}};return s.default})()}));
+/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["Starback"] = factory();
+	else
+		root["Starback"] = factory();
+})(self, function() {
+return /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _starback__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./starback */ \"./src/starback.js\");\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_starback__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\n\n//# sourceURL=webpack://Starback/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/starback.js":
+/*!*************************!*\
+  !*** ./src/starback.js ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"StarbackDefaultConfig\": () => (/* binding */ StarbackDefaultConfig),\n/* harmony export */   \"default\": () => (/* binding */ Starback)\n/* harmony export */ });\n/* harmony import */ var _types_dot__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types/dot */ \"./src/types/dot.js\");\n\n\n/**\r\n * Default Config\r\n * @type {Object}\r\n */\n\nconst StarbackDefaultConfig = {\n  width: 800,\n  height: 600,\n  speed: 0.5,\n  starColor: ['#fb00ff', '#00dde0'],\n  maxStar: 200,\n  starSize: 100,\n  directionY: 1,\n  // 1 = top-to-bottom, 2 = bottom-to-top\n  directionX: 1,\n  // 1 = left-to-right, 2 = right-to-left\n  distanceX: 0.1,\n  // distance of the current start X\n  slope: {\n    x: 1,\n    y: 1\n  },\n  frequency: 10,\n  spread: 1,\n  randomOpacity: false,\n  backgroundColor: '#ccc',\n  showFps: false,\n  type: 'dot'\n};\n/**\r\n * Starback class wrapper\r\n * @class Starback\r\n */\n\nclass Starback {\n  static DefaultConfig = StarbackDefaultConfig;\n  /**\r\n   * Stores stars' class\r\n   * @type {Dot|Line}\r\n   */\n\n  stars = null;\n  starTypes = {\n    'dot': _types_dot__WEBPACK_IMPORTED_MODULE_0__[\"default\"],\n    'line': _types_dot__WEBPACK_IMPORTED_MODULE_0__[\"default\"]\n  };\n  /**\r\n   * Starback library\r\n   * @param {HTMLElement|string} Canvas element or the selector\r\n   * @param {Object} options\r\n   */\n\n  constructor(canvas, config = {}) {\n    this.canvas = canvas instanceof HTMLElement ? canvas : document.querySelector(canvas);\n    /** @type {CanvasRenderingContext2D} */\n\n    this.ctx = this.canvas.getContext('2d'); // merge config\n\n    this.mergeConfig(config); //\n\n    this.repeat = 0; // storing callbacks\n\n    this.frontCallbacks = [];\n    this.behindCallbacks = []; // for calculating fps\n\n    this.fps = 0;\n    this.lastCalledTime = 0; // time tracking\n\n    this.lastGenerated = 0;\n    this.init();\n  }\n  /**\r\n   * Merge Config\r\n   * @param  {StarbackDefaultConfig|object} instanceConfig\r\n   */\n\n\n  mergeConfig(instanceConfig) {\n    // merge config\n    const config = Object.assign(StarbackDefaultConfig, instanceConfig); // apply config\n\n    this.width = config.width;\n    this.height = config.height;\n    this.speed = config.speed;\n    this.directionY = config.directionY * -1;\n    this.directionX = config.directionX;\n    this.starColor = config.starColor;\n    this.maxStar = config.maxStar;\n    this.slope = config.slope;\n    this.starSize = config.starSize;\n    this.showFps = config.showFps;\n    this.backgroundColor = config.backgroundColor;\n    this.distanceX = config.distanceX;\n    this.frequency = config.frequency;\n    this.randomOpacity = config.randomOpacity;\n    this.spread = config.spread;\n    this.type = config.type;\n  }\n  /**\r\n   * Initialize canvas before render\r\n   */\n\n\n  init() {\n    this.canvas.setAttribute('width', this.width);\n    this.canvas.setAttribute('height', this.height);\n    this.stars = new this.starTypes[this.type](canvas, this.config);\n    requestAnimationFrame(t => this.render(t));\n  }\n  /**\r\n   * Set background for the whole canvas\r\n   */\n\n\n  setBackground() {\n    let bg;\n    if (typeof this.backgroundColor == 'string') bg = this.backgroundColor;else if (typeof this.backgroundColor == 'object') {\n      bg = this.ctx.createLinearGradient(this.canvas.width / 2, 0, this.canvas.width / 2, this.canvas.height);\n      this.backgroundColor.forEach((bgString, index) => {\n        bg.addColorStop(index / this.backgroundColor.length, bgString);\n      });\n    }\n    this.ctx.fillStyle = bg;\n    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);\n  }\n  /**\r\n   * Draw the frame into the canvas\r\n   */\n\n\n  draw() {\n    this.stars.draw();\n  }\n  /**\r\n   * Update everything in the canvas frame including stars\r\n   */\n\n\n  update() {\n    this.stars.update();\n  }\n  /**\r\n   * Add an object in front of the stars\r\n   * @param {Function} cb Callback function\r\n   */\n\n\n  addToFront(cb) {\n    this.frontCallbacks.push(cb);\n  }\n  /**\r\n   * Add an object behind the stars\r\n   * @param {Function} cb Callback function\r\n   */\n\n\n  addToBehind(cb) {\n    this.behindCallbacks.push(cb);\n  }\n  /**\r\n   * The total quantity of stars in canvas\r\n   * @param {Number} amount The number of stars\r\n   */\n\n\n  generateStar(amount) {\n    this.stars.generate(amount);\n  }\n  /**\r\n   * Draw the FPS in the canvas.\r\n   */\n\n\n  drawFps() {\n    this.ctx.fillStyle = 'white';\n    this.ctx.fillText(`${this.fps} fps`, 10, 10);\n  }\n  /**\r\n   * Canvas render function\r\n   * @param {DOMHighResTimeStamp} timestamp \r\n   */\n\n\n  render(timestamp) {\n    if (!this.lastCalledTime) this.lastCalledTime = timestamp;\n    let deltaTime = timestamp - this.lastCalledTime;\n    this.fps = Math.round(1000 / deltaTime);\n    this.lastCalledTime = timestamp;\n    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);\n    this.setBackground();\n    this.draw();\n    this.update();\n    requestAnimationFrame(t => this.render(t));\n  }\n\n}\n\n//# sourceURL=webpack://Starback/./src/starback.js?");
+
+/***/ }),
+
+/***/ "./src/types/dot.js":
+/*!**************************!*\
+  !*** ./src/types/dot.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! .. */ \"./src/index.js\");\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../utils */ \"./src/utils.js\");\n\n\n\nclass Dot {\n  /**\r\n   * Collection of stars\r\n   * @param\r\n   */\n  stars = [];\n  config = null;\n  direction = 45;\n  /** @type {HTMLCanvasElement} */\n\n  canvas = null;\n  /** @type {CanvasRenderingContext2D} */\n\n  ctx = null;\n\n  constructor(canvas, config) {\n    this.config = config;\n    this.canvas = canvas;\n    this.ctx = canvas.getContext('2d');\n  }\n\n  draw() {\n    for (let i = 0; i < this.stars.length; i++) {\n      let star = this.stars[i];\n      this.ctx.beginPath();\n      this.ctx.fillStyle = \"white\";\n      this.ctx.arc(star.x, star.y, 2, 0, Math.PI * 2);\n      this.ctx.fill();\n      this.ctx.closePath();\n    }\n  }\n\n  update() {\n    let dx = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.sinDeg)(this.direction);\n    let dy = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.cosDeg)(this.direction);\n  }\n\n  generate(amount) {\n    for (let i = 0; i < amount; i++) {\n      let x = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.randomNumber)(0, this.canvas.width);\n      let y = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.randomNumber)(0, this.canvas.height);\n      this.stars.push({\n        x,\n        y\n      });\n    }\n\n    console.log(this.stars);\n    console.log('generate dot', amount);\n  }\n\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Dot);\n\n//# sourceURL=webpack://Starback/./src/types/dot.js?");
+
+/***/ }),
+
+/***/ "./src/utils.js":
+/*!**********************!*\
+  !*** ./src/utils.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"randomNumber\": () => (/* binding */ randomNumber),\n/* harmony export */   \"randomArr\": () => (/* binding */ randomArr),\n/* harmony export */   \"sinDeg\": () => (/* binding */ sinDeg),\n/* harmony export */   \"cosDeg\": () => (/* binding */ cosDeg)\n/* harmony export */ });\n/**\r\n * Get random number between two given number.\r\n * @param {Number} min Minimum Number\r\n * @param {Number} max Maximum Number\r\n * @returns {Number} The random number result\r\n*/\nfunction randomNumber(min, max) {\n  return Math.floor(Math.random() * (max - min) + 1) + min;\n}\nfunction randomArr(arr) {\n  return arr[Math.floor(Math.random() * arr.length)];\n}\n/**\r\n * Convert angle degree to sin degree\r\n * @param {*} angleDeg \r\n */\n\nfunction sinDeg(angleDeg) {\n  return Math.sin(angleDeg * (Math.PI / 180));\n}\n/**\r\n * Convert angle degree to cos degree\r\n * @param {*} angleDeg \r\n */\n\nfunction cosDeg(angleDeg) {\n  return Math.cos(angleDeg * (Math.PI / 180));\n}\n\n//# sourceURL=webpack://Starback/./src/utils.js?");
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
+/******/ 	__webpack_exports__ = __webpack_exports__["default"];
+/******/ 	
+/******/ 	return __webpack_exports__;
+/******/ })()
+;
+});

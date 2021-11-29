@@ -4,14 +4,14 @@ const starback = new Starback(canvas, {
   height: canvas.parentElement.clientHeight,
   speed: 5,
   frequency: 5,
+  type: 'dot',
   slope: { x: 5, y: 3 },
   directionX: 1,
   spread: 0.2,
   randomOpacity: true,
-  backgroundColor: ['#0F2027', '#203A43', '#2C5364'],
+  backgroundColor: ['#0F2027', '#232b3e'],
 })
-
-starback.generateStar(20)
+starback.generateStar(100)
 let mountain = new Image()
 mountain.src = 'images/mountain2.png'
 
