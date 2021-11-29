@@ -8,17 +8,17 @@ import Line from "./types/dot"
 export const StarbackDefaultConfig = {
   width: 800,
   height: 600,
-  speed: 0.5,
+  speed: [0.1, .8],
   starColor: ['#fb00ff', '#00dde0'],
-  maxStar: 200,
-  starSize: 100,
+  quantity: 100,
+  starSize: [0, 3],
   directionY: 1, // 1 = top-to-bottom, 2 = bottom-to-top
   directionX: 1, // 1 = left-to-right, 2 = right-to-left
   distanceX: 0.1, // distance of the current start X
   slope: { x: 1, y: 1 },
   frequency: 10,
   spread: 1,
-  randomOpacity: false,
+  randomOpacity: true,
   backgroundColor: '#ccc',
   showFps: false,
   type: 'dot'
@@ -30,6 +30,8 @@ export const StarbackDefaultConfig = {
  */
 export default class Starback {
   static DefaultConfig = StarbackDefaultConfig
+
+  config = {}
 
   /**
    * Stores stars' class
@@ -78,34 +80,36 @@ export default class Starback {
   mergeConfig(instanceConfig) {
     // merge config
     const config = Object.assign(StarbackDefaultConfig, instanceConfig)
-
+    
     // apply config
-    this.width = config.width
-    this.height = config.height
-    this.speed = config.speed
-    this.directionY = config.directionY * -1
-    this.directionX = config.directionX
-    this.starColor = config.starColor
-    this.maxStar = config.maxStar
-    this.slope = config.slope
-    this.starSize = config.starSize
-    this.showFps = config.showFps
-    this.backgroundColor = config.backgroundColor
-    this.distanceX = config.distanceX
-    this.frequency = config.frequency
-    this.randomOpacity = config.randomOpacity
-    this.spread = config.spread
-    this.type = config.type
+    this.config = config
+    // this.width = config.width
+    // this.height = config.height
+    // this.speed = config.speed
+    // this.direction = config.direction
+    // // this.directionY = config.directionY
+    // // this.directionX = config.directionX
+    // this.starColor = config.starColor
+    // this.maxStar = config.maxStar
+    // this.slope = config.slope
+    // this.starSize = config.starSize
+    // this.showFps = config.showFps
+    // this.config.backgroundColor = config.backgroundColor
+    // this.distanceX = config.distanceX
+    // this.frequency = config.frequency
+    // this.randomOpacity = config.randomOpacity
+    // this.spread = config.spread
+    // this.type = config.type
   }
 
   /**
    * Initialize canvas before render
    */
   init() {
-    this.canvas.setAttribute('width', this.width)
-    this.canvas.setAttribute('height', this.height)
+    this.canvas.setAttribute('width', this.config.width)
+    this.canvas.setAttribute('height', this.config.height)
 
-    this.stars = new this.starTypes[this.type](canvas, this.config)
+    this.stars = new this.starTypes[this.config.type](canvas, this.config)
 
     requestAnimationFrame((t) => this.render(t))
   }
@@ -117,15 +121,14 @@ export default class Starback {
   setBackground() {
     let bg
 
-    if (typeof this.backgroundColor == 'string') bg = this.backgroundColor
-    else if (typeof this.backgroundColor == 'object') {
+    if (typeof this.config.backgroundColor == 'string') bg = this.config.backgroundColor
+    else if (typeof this.config.backgroundColor == 'object') {
       bg = this.ctx.createLinearGradient(this.canvas.width / 2, 0, this.canvas.width / 2, this.canvas.height)
 
-      this.backgroundColor.forEach((bgString, index) => {
-        bg.addColorStop(index / this.backgroundColor.length, bgString)
+      this.config.backgroundColor.forEach((bgString, index) => {
+        bg.addColorStop(index / this.config.backgroundColor.length, bgString)
       })
     }
-
     this.ctx.fillStyle = bg
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
   }
@@ -164,8 +167,8 @@ export default class Starback {
    * The total quantity of stars in canvas
    * @param {Number} amount The number of stars
    */
-  generateStar(amount) {
-    this.stars.generate(amount)
+  generateStar() {
+    this.stars.generate(this.config.quantity)
   }
 
   /**

@@ -2,13 +2,11 @@ const canvas = document.getElementById('canvas')
 const starback = new Starback(canvas, {
   width: canvas.parentElement.clientWidth,
   height: canvas.parentElement.clientHeight,
-  speed: 5,
   frequency: 5,
   type: 'dot',
   slope: { x: 5, y: 3 },
   directionX: 1,
   spread: 0.2,
-  randomOpacity: true,
   backgroundColor: ['#0F2027', '#232b3e'],
 })
 starback.generateStar(100)
