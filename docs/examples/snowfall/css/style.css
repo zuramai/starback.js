@@ -75,7 +75,7 @@ body {
 }
 
 .text h1 {
-    font-size: 5rem;
+    font-size: clamp(2rem,5vw,5rem);
     -webkit-text-fill-color: white; /* Will override color (regardless of order) */
     text-shadow: 10px 10px 35px rgba(0,0,0,.5);
     text-align: center;

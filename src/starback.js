@@ -135,9 +135,9 @@ export default class Starback {
    * Draw the frame into the canvas
    */
   draw() {
-    this.frontCallbacks.forEach(cb => cb(this.ctx))
-    this.stars.draw()
     this.behindCallbacks.forEach(cb => cb(this.ctx))
+    this.stars.draw()
+    this.frontCallbacks.forEach(cb => cb(this.ctx))
 
     // Show FPS if config.showFps is enabled
     if (this.showFps) this.drawFps()

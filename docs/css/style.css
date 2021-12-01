@@ -60,11 +60,28 @@ body {
 }
 
 /* Examples section */
-.examples {
+.examples-section {
   margin-top: 5rem;
   color: white;
   opacity: 0;
+  text-align: center;
   animation: goUp 1s cubic-bezier(0, 0.55, 0.45, 1) .7s forwards;
+}
+.examples-section p {
+  margin-bottom: 1rem;
+}
+.examples {
+  display: flex;
+  gap: 2rem;
+}
+
+.examples img {
+  height: 150px;
+  width: 290px;
+}
+
+.example img {
+  border-radius: .4rem;
 }
 
 @keyframes fullWidth {
@@ -83,5 +100,10 @@ body {
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+@media screen and (max-width: 768px) {
+  .examples {
+    flex-direction: column;
   }
 }
