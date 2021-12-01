@@ -7,7 +7,7 @@ class Dot {
      * @param
      */
     stars = []
-    config = null
+    config = {}
     direction = 225
     overflowSize = 10
 
@@ -31,12 +31,6 @@ class Dot {
         this.direction = this.config.direction
         this.canvas = canvas
         this.ctx = canvas.getContext('2d')
-
-        let dx = sinDeg(this.direction) 
-        let dy = cosDeg(this.direction) 
-        console.log(dx,dy)
-
-        
     }
     draw() {
         for(let i = 0; i < this.stars.length; i++) {
@@ -44,9 +38,12 @@ class Dot {
             
 
             this.ctx.beginPath()
-            this.ctx.fillStyle = `rgba(255,255,255,${star.opacity})`
+            this.ctx.fillStyle = this.config.starColor
+            this.ctx.save()
+            this.ctx.globalAlpha = star.opacity
             this.ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2)
             this.ctx.fill()
+            this.ctx.restore()
             this.ctx.closePath()
         }
     }
@@ -59,8 +56,6 @@ class Dot {
             // console.log(star.speed)
             star.x += dx * star.speed
             star.y += dy * star.speed
-
-
 
             // When the star location is outside the canvas, replace the star with a new one
             if(star.x > this.canvas.width + this.overflowSize || 
@@ -148,8 +143,6 @@ class Dot {
             })
         }
 
-        console.log(this.stars.map(s => s.speed))
-        console.log('generate dot', amount)
     }
     randomSize() {
         return typeof this.config.starSize == 'object' ? randomNumber(this.config.starSize[0], this.config.starSize[1]) : this.config.starSize
@@ -157,7 +150,7 @@ class Dot {
     randomOpacity() {
         let opacity = this.config.randomOpacity
         if(typeof opacity == 'boolean') 
-            return (opacity ? Math.random() : 1).toFixed(2)
+            return !opacity ? 1 : (opacity ? Math.random() : 1).toFixed(2)
         else 
             return (Math.random() * (opacity[1] - opacity[0]) + opacity[0]).toFixed(2)
     }

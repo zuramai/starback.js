@@ -101,11 +101,8 @@ export default class Starback {
     this.canvas.setAttribute('height', this.config.height)
     this.stars = new this.starTypes[this.config.type](canvas, this.config)
 
-    console.log(this.stars)
     this.config = Object.assign(this.stars.defaultConfig, this.config)
     this.stars.config = this.config
-
-    console.log(this.starTypes, this.config.type)
 
     this.generateStar()
 
@@ -140,7 +137,7 @@ export default class Starback {
     this.frontCallbacks.forEach(cb => cb(this.ctx))
 
     // Show FPS if config.showFps is enabled
-    if (this.showFps) this.drawFps()
+    if (this.config.showFps) this.drawFps()
   }
 
   /**
@@ -179,6 +176,7 @@ export default class Starback {
    */
   drawFps() {
     this.ctx.fillStyle = 'white'
+    console.log(this.fps)
     this.ctx.fillText(`${this.fps} fps`, 10, 10)
   }
 

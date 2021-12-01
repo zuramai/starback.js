@@ -8,7 +8,6 @@ class Line {
     stars = []
     config = null
     direction = 225
-    overflowSize = 10
 
     /** @type {HTMLCanvasElement} */
     canvas = null
@@ -103,7 +102,6 @@ class Line {
         },
       })
     }
-    console.log(this.stars)
     return this.stars
   }
     
