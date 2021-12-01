@@ -8,7 +8,6 @@ class Dot {
      */
     stars = []
     config = {}
-    direction = 225
     overflowSize = 10
 
     defaultConfig = {
@@ -28,7 +27,6 @@ class Dot {
     
     constructor(canvas, config) {
         this.config = config
-        this.direction = this.config.direction
         this.canvas = canvas
         this.ctx = canvas.getContext('2d')
     }
@@ -48,12 +46,11 @@ class Dot {
         }
     }
     update() {
-        let dx = sinDeg(this.direction) 
-        let dy = cosDeg(this.direction) 
+        let dx = sinDeg(this.config.direction) 
+        let dy = cosDeg(this.config.direction) 
         
         for(let i = 0; i < this.stars.length; i++) {
             let star = this.stars[i]
-            // console.log(star.speed)
             star.x += dx * star.speed
             star.y += dy * star.speed
 
