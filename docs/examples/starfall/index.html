@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starfall demo - Starback.js</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <script src="./../../../dist/starback.js"></script>
+    <script>
+        const starback = new Starback("#canvas", {
+            width: document.body.clientWidth,
+            height: document.body.clientHeight,
+            type: 'line',
+            quantity: 100,
+            slope: {x:1, y: 1},
+            spread: 5,
+            starSize: 100,
+            directionX: 1,
+            directionY: -1,
+            distanceX: 0.1,
+            frequency: 19,
+            speed: 1
+        })
+    </script>
+</body>
+</html>

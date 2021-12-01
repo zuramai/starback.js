@@ -1,20 +1,19 @@
 const canvas = document.getElementById('canvas')
+
 const starback = new Starback(canvas, {
   width: canvas.parentElement.clientWidth,
   height: canvas.parentElement.clientHeight,
-  frequency: 5,
   type: 'dot',
-  slope: { x: 5, y: 3 },
-  directionX: 1,
-  spread: 0.2,
-  backgroundColor: ['#0F2027', '#232b3e'],
+  quantity: 100,
+  direction: 180,
+  backgroundColor: ['#0e1118', '#232b3e'],
 })
-starback.generateStar(100)
+
 let mountain = new Image()
 mountain.src = 'images/mountain2.png'
 
 mountain.onload = () => {
-  starback.addToFront((ctx) => {
+  starback.addToBehind((ctx) => {
     ctx.drawImage(
       mountain,
       0,

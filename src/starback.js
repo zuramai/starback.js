@@ -1,5 +1,5 @@
 import Dot from "./types/dot"
-import Line from "./types/dot"
+import Line from "./types/line"
 
 /**
  * Default Config
@@ -8,18 +8,8 @@ import Line from "./types/dot"
 export const StarbackDefaultConfig = {
   width: 800,
   height: 600,
-  speed: [0.1, .8],
-  starColor: ['#fb00ff', '#00dde0'],
-  quantity: 100,
-  starSize: [0, 3],
-  directionY: 1, // 1 = top-to-bottom, 2 = bottom-to-top
-  directionX: 1, // 1 = left-to-right, 2 = right-to-left
-  distanceX: 0.1, // distance of the current start X
-  slope: { x: 1, y: 1 },
-  frequency: 10,
-  spread: 1,
+  
   randomOpacity: true,
-  backgroundColor: '#ccc',
   showFps: false,
   type: 'dot'
 }
@@ -54,6 +44,7 @@ export default class Starback {
     /** @type {CanvasRenderingContext2D} */
     this.ctx = this.canvas.getContext('2d')
 
+
     // merge config
     this.mergeConfig(config)
 
@@ -79,7 +70,7 @@ export default class Starback {
    */
   mergeConfig(instanceConfig) {
     // merge config
-    const config = Object.assign(StarbackDefaultConfig, instanceConfig)
+    let config = Object.assign(StarbackDefaultConfig, instanceConfig)
     
     // apply config
     this.config = config
@@ -108,8 +99,15 @@ export default class Starback {
   init() {
     this.canvas.setAttribute('width', this.config.width)
     this.canvas.setAttribute('height', this.config.height)
-
     this.stars = new this.starTypes[this.config.type](canvas, this.config)
+
+    console.log(this.stars)
+    this.config = Object.assign(this.stars.defaultConfig, this.config)
+    this.stars.config = this.config
+
+    console.log(this.starTypes, this.config.type)
+
+    this.generateStar()
 
     requestAnimationFrame((t) => this.render(t))
   }
@@ -137,7 +135,12 @@ export default class Starback {
    * Draw the frame into the canvas
    */
   draw() {
+    this.frontCallbacks.forEach(cb => cb(this.ctx))
     this.stars.draw()
+    this.behindCallbacks.forEach(cb => cb(this.ctx))
+
+    // Show FPS if config.showFps is enabled
+    if (this.showFps) this.drawFps()
   }
 
   /**
