@@ -1,3 +1,6 @@
+import Dot from "./types/dot"
+import Line from "./types/line"
+
 /**
  * Default Config
  * @type {Object}
@@ -5,27 +8,31 @@
 export const StarbackDefaultConfig = {
   width: 800,
   height: 600,
-  speed: 0.5,
-  starColor: ['#fb00ff', '#00dde0'],
-  maxStar: 200,
-  starSize: 100,
-  directionY: 1, // 1 = top-to-bottom, 2 = bottom-to-top
-  directionX: 1, // 1 = left-to-right, 2 = right-to-left
-  distanceX: 0.1, // distance of the current start X
-  slope: { x: 1, y: 1 },
-  frequency: 10,
-  spread: 1,
-  randomOpacity: false,
-  backgroundColor: '#ccc',
+  
+  randomOpacity: true,
   showFps: false,
+  type: 'dot'
 }
 
 /**
- * Starback
+ * Starback class wrapper
  * @class Starback
  */
 export default class Starback {
   static DefaultConfig = StarbackDefaultConfig
+
+  config = {}
+
+  /**
+   * Stores stars' class
+   * @type {Dot|Line}
+   */
+  stars = null
+
+  starTypes = {
+    'dot': Dot,
+    'line': Line
+  }
 
   /**
    * Starback library
@@ -37,12 +44,12 @@ export default class Starback {
     /** @type {CanvasRenderingContext2D} */
     this.ctx = this.canvas.getContext('2d')
 
+
     // merge config
     this.mergeConfig(config)
 
     //
     this.repeat = 0
-    this.stars = []
 
     // storing callbacks
     this.frontCallbacks = []
@@ -57,158 +64,127 @@ export default class Starback {
 
     this.init()
   }
-  init() {
-    this.canvas.setAttribute('width', this.width)
-    this.canvas.setAttribute('height', this.height)
-
-    requestAnimationFrame((t) => this.render(t))
-    console.log(this.width, this.height)
-  }
-  update() {
-    this.stars.map((star, index) => {
-      star.progress += star.speed
-      // if(star.y - star.height > this.canvas.height) return stars.splice(index,1)
-    })
-  }
   /**
    * Merge Config
    * @param  {StarbackDefaultConfig|object} instanceConfig
    */
   mergeConfig(instanceConfig) {
     // merge config
-    const config = Object.assign(StarbackDefaultConfig, instanceConfig)
-
+    let config = Object.assign(StarbackDefaultConfig, instanceConfig)
+    
     // apply config
-    this.width = config.width
-    this.height = config.height
-    this.speed = config.speed
-    this.directionY = config.directionY * -1
-    this.directionX = config.directionX
-    this.starColor = config.starColor
-    this.maxStar = config.maxStar
-    this.slope = config.slope
-    this.starSize = config.starSize
-    this.showFps = config.showFps
-    this.backgroundColor = config.backgroundColor
-    this.distanceX = config.distanceX
-    this.frequency = config.frequency
-    this.randomOpacity = config.randomOpacity
-    this.spread = config.spread
+    this.config = config
+    // this.width = config.width
+    // this.height = config.height
+    // this.speed = config.speed
+    // this.direction = config.direction
+    // // this.directionY = config.directionY
+    // // this.directionX = config.directionX
+    // this.starColor = config.starColor
+    // this.maxStar = config.maxStar
+    // this.slope = config.slope
+    // this.starSize = config.starSize
+    // this.showFps = config.showFps
+    // this.config.backgroundColor = config.backgroundColor
+    // this.distanceX = config.distanceX
+    // this.frequency = config.frequency
+    // this.randomOpacity = config.randomOpacity
+    // this.spread = config.spread
+    // this.type = config.type
   }
+
+  /**
+   * Initialize canvas before render
+   */
+  init() {
+    this.canvas.setAttribute('width', this.config.width)
+    this.canvas.setAttribute('height', this.config.height)
+    this.stars = new this.starTypes[this.config.type](canvas, this.config)
+
+    this.config = Object.assign(this.stars.defaultConfig, this.config)
+    this.stars.config = this.config
+
+    this.generateStar()
+
+    requestAnimationFrame((t) => this.render(t))
+  }
+  
+  
+  /**
+   * Set background for the whole canvas
+   */
   setBackground() {
     let bg
 
-    if (typeof this.backgroundColor == 'string') bg = this.backgroundColor
-    else if (typeof this.backgroundColor == 'object') {
+    if (typeof this.config.backgroundColor == 'string') bg = this.config.backgroundColor
+    else if (typeof this.config.backgroundColor == 'object') {
       bg = this.ctx.createLinearGradient(this.canvas.width / 2, 0, this.canvas.width / 2, this.canvas.height)
 
-      this.backgroundColor.forEach((bgString, index) => {
-        bg.addColorStop(index / this.backgroundColor.length, bgString)
+      this.config.backgroundColor.forEach((bgString, index) => {
+        bg.addColorStop(index / this.config.backgroundColor.length, bgString)
       })
     }
-
     this.ctx.fillStyle = bg
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
   }
 
   /**
-   * Get random number between two given number.
-   * @param {Number} min Minimum Number
-   * @param {Number} max Maximum Number
-   * @returns {Number} The random number result
+   * Draw the frame into the canvas
    */
-  randomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min) + 1) + min
-  }
   draw() {
-    this.ctx.strokeStyle = 'white'
-    this.stars.forEach((star) => {
-      // Add to front of stars with callback
-      this.behindCallbacks.forEach((cb) => cb(ctx))
+    this.behindCallbacks.forEach(cb => cb(this.ctx))
+    this.stars.draw()
+    this.frontCallbacks.forEach(cb => cb(this.ctx))
 
-      // draw the stars
-      let starColor
-      if (typeof this.starColor == 'object') {
-        starColor = this.ctx.createLinearGradient(0, 0, this.canvas.width, this.canvas.height)
-        this.starColor.forEach((color, index) => starColor.addColorStop(index / this.starColor.length, color))
-      } else starColor = this.starColor
-
-      // pathway with berzier curve
-      this.ctx.save()
-      this.ctx.strokeStyle = starColor
-      this.ctx.beginPath()
-      this.ctx.moveTo(star.start.x, star.start.y)
-      this.ctx.setLineDash([this.starSize, star.startPoint * this.frequency])
-      this.ctx.lineDashOffset = this.directionY * (star.progress + star.length)
-      this.ctx.quadraticCurveTo(star.curve.x, star.curve.y, star.end.x, star.end.y)
-      this.ctx.stroke()
-      this.ctx.closePath()
-      this.ctx.restore()
-
-      // Add to front of stars with callback
-      this.frontCallbacks.forEach((cb) => cb(this.ctx))
-
-      // Draw FPS (development only)
-      if (this.showFps) this.drawFps()
-
-      // bezier curve point
-      // this.ctx.beginPath()
-      // this.ctx.fillStyle="blue"
-      // this.ctx.arc(star.curve.x, star.curve.y, 20, 0, Math.PI*2)
-      // this.ctx.fill()
-      // this.ctx.closePath()
-    })
+    // Show FPS if config.showFps is enabled
+    if (this.config.showFps) this.drawFps()
   }
-  generateRandomStar() {
-    const x = this.randomNumber(-20, this.canvas.width)
-    const y = x <= 0 ? this.randomNumber(0, this.canvas.height) : 0
-    const height = this.starSize
-    const endX = x + (this.canvas.width * this.distanceX + this.spread * x * this.directionX)
-    const adjacentWidth = endX - x
-    const length = this.canvas.height
 
-    this.stars.push({
-      x,
-      y,
-      length,
-      height,
-      progress: 0,
-      speed: this.speed + Math.random() / 5,
-      lineDash: this.randomNumber(50, 100),
-      filter: {
-        opacity: this.randomArr([this.randomNumber(20, 100) + '%', false]),
-      },
-      start: {
-        x,
-        y,
-      },
-      curve: {
-        x: x + adjacentWidth * this.slope.x,
-        y: y + this.canvas.height * this.slope.y,
-      },
-      startPoint: this.randomNumber(10, 100),
-      end: {
-        x: endX,
-        y: this.canvas.height,
-      },
-    })
-    return this.stars
+  /**
+   * Update everything in the canvas frame including stars
+   */
+  update() {
+    this.stars.update()
   }
+
+  /**
+   * Add an object in front of the stars
+   * @param {Function} cb Callback function
+   */
   addToFront(cb) {
     this.frontCallbacks.push(cb)
   }
+
+  /**
+   * Add an object behind the stars
+   * @param {Function} cb Callback function
+   */
   addToBehind(cb) {
     this.behindCallbacks.push(cb)
   }
-  generateStar(amount) {
-    for (let i = 0; i < amount; i++) {
-      this.generateRandomStar()
-    }
+
+  /**
+   * The total quantity of stars in canvas
+   * @param {Number} amount The number of stars
+   */
+  generateStar() {
+    this.stars.generate(this.config.quantity)
   }
+
+  /**
+   * Draw the FPS in the canvas.
+   */
   drawFps() {
     this.ctx.fillStyle = 'white'
+    console.log(this.fps)
     this.ctx.fillText(`${this.fps} fps`, 10, 10)
   }
+
+
+  /**
+   * Canvas render function
+   * @param {DOMHighResTimeStamp} timestamp 
+   */
   render(timestamp) {
     if (!this.lastCalledTime) this.lastCalledTime = timestamp
 
@@ -223,7 +199,6 @@ export default class Starback {
 
     requestAnimationFrame((t) => this.render(t))
   }
-  randomArr(arr) {
-    return arr[Math.floor(Math.random() * arr.length)]
-  }
+
+  
 }

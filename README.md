@@ -1,14 +1,13 @@
-![starbackjs](https://user-images.githubusercontent.com/45036724/130007266-83c720b8-ce3f-47e8-a854-ac0b640ce36f.gif)
+![Starbackjs](https://user-images.githubusercontent.com/45036724/144230732-9104dc0e-c4fe-4c5c-9990-6693f4c0400c.gif)
+![Starbackjs Demo Night](https://user-images.githubusercontent.com/45036724/144230828-076a39ae-cc2a-4096-803d-a9bbb49b1d58.gif)
 
 ## Getting Started
-
 You can use starback.js directly with `<script>` tag or import syntax.
-
 - With `<script>` tag
 
   ```html
   # Using CDN
-  <script src="https://unpkg.com/starback@1.1.0/dist/starback.js"></script>
+  <script src="https://unpkg.com/starback@2.0.0/dist/starback.js"></script>
 
   # Using downloaded files
   <script src="PATH_TO_YOUR_DIST_FOLDER/starback.js"></script>
@@ -37,13 +36,12 @@ You can use starback.js directly with `<script>` tag or import syntax.
 <script>
   const canvas = document.getElementById('canvas')
   const starback = new Starback(canvas, {
-    width: 1000,
-    height: 500,
-    speed: 5,
-    spread: 0.2,
-    // ...and the other options
+      type: 'dot',
+      quantity: 100,
+      direction: 225,
+      backgroundColor: ['#0e1118', '#232b3e'],
+      randomOpacity: true,
   })
-  starback.generateStar(20)
 </script>
 ```
 
@@ -51,28 +49,42 @@ You can check the more options in [Options section](#options)
 
 ## Options
 
-| Key             | Type              | Description                                                                                                                                                         | Required | Default Value           |
+
+| Key  | Type   | Description          | Required | Default Value|
 | --------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------------------- |
-| width           | Number            | Canvas width to set                                                                                                                                                 | no       | 800                     |
-| height          | Number            | Canvas height to set                                                                                                                                                | no       | 600                     |
-| backgroundColor | String&#124;Array | Color of the background, use string for solid color, or array of colors for linear gradient                                                                         | no       | #ccc                    |
-| directionY      | Number            | The direction the star to move vertically (1 = to bottom, 0 = to top)                                                                                               | no       | 1                       |
-| directionX      | Number            | The direction the star to move vertically (1 = to right, 0 = to left)                                                                                               | no       | 1                       |
-| distanceX       | Number            | Distance horizontally the star should reaching at                                                                                                                   | no       | 0.1                     |
-| frequency       | Number            | The frequency of star will be rotated                                                                                                                               | no       | 10                      |
-| randomOpacity   | Boolean           | If `true`, random star will get random opacity                                                                                                                      | no       | false                   |
-| slope           | Object            | The quadraticCurve coordinate that will be applied to stars. Read [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/quadraticCurveTo) | no       | {x: 1, y: 1}            |
-| starColor       | String&#124;Array | Color of the stars, use string for solid color, or array of colors for linear gradient                                                                              | no       | hsla(299, 100%, 50%, 1) |
-| speed           | Number            | Star speed                                                                                                                                                          | no       | 0.5                     |
-| spread          | Number            | The spread level of the stars                                                                                                                                       | no       | 1                       |
-| starSize        | Number            | Star height                                                                                                                                                         | no       | 100                     |
-| showFps         | Boolean           | Show FPS on the top left screen                                                                                                                                     | no       | false                   |
+| type | String | **Required.** Star type to use. The values are 'dot' or 'line' | true | 800    |
+| width| Number | Canvas width to set  | no | 800    |
+| height    | Number | Canvas height to set | no | 600    |
+| backgroundColor | String&#124;Array | Color of the background, use string for solid color, or array of colors for linear gradient | no | #ccc   |
+| quantity        | Boolean | Number of stars to show | 100 | false        |
+| showFps         | Boolean | Show FPS on the top left screen | no       | false        |
+| speed | Number | Star speed | no       | 0.5          |
+| starSize        | Number&#124;Array | Use number for fixed star size. Use [minSize, maxSize] value for random the size within the range | no       | [0, 3] for `type: dot`, 100 for `type: line`          |
+
+## Additional options for `type: 'dot'`
+| Key  | Type   | Description          | Required | Default Value |
+| ---- | ------ | -------------------- | -------- | ------------- |
+| direction   | Number | Use 360 degree to set the direction | no | 225  |
+| randomOpacity   | Boolean&#124;Array | If `true`, random star will get random opacity. Use array [minOpacity, maxOpacity] to limit the random opacity  | no | false  |
+| starColor       | String | Color of the stars, you can use `rgb` or `hex` like css color. | no       | white |
+
+## Additional options for `type: 'line'`
+| Key  | Type   | Description          | Required | Default Value |
+| ---- | ------ | -------------------- | -------- | ------------- |
+| directionY      | Number | The direction the star to move vertically (1 = to bottom, 0 = to top)       | no       | 1 |
+| directionX      | Number | The direction the star to move vertically (1 = to right, 0 = to left)       | no       | 1 |
+| distanceX       | Number | Distance horizontally the star should reaching at     | no       | 0.1          |
+| frequency       | Number | The frequency of star will be rotated      | no       | 10|
+| slope | Object | The quadraticCurve coordinate that will be applied to stars. Read [MDN](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/quadraticCurveTo) | no       | {x: 1, y: 1} |
+| starColor       | String&#124;Array | Color of the stars, use string for solid color, or array of colors for linear gradient | no       | ['#fb00ff', '#00dde0'] |
+| spread          | Number | The spread level of the stars   | no       | 1 |
+
 
 ## Methods
 
-| Name                         | Parameter                               | Description                                       |
+| Name   | Parameter         | Description      |
 | ---------------------------- | --------------------------------------- | ------------------------------------------------- |
-| `generateStar(amount)`       | amount                                  | The quantity of stars that will be shown          |
+| `generateStar(amount)`       | amount | The quantity of stars that will be shown          |
 | `addToFront(callback(ctx))`  | function(ctx: CanvasRenderingContext2D) | Add to front of the falling star by given context |
 | `addToBehind(callback(ctx))` | function(ctx: CanvasRenderingContext2D) | Add to back of the falling star by given context  |
 

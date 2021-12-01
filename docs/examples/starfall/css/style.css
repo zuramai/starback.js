@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Slab';
+  }
+  canvas {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    z-index: -2;
+  }
+  body {
+    overflow-x: hidden;
+  }
+  #canvas {
+      height: 100%;
+  }
+  #hero {
+    width: 100%;
+    height: 100vh;
+  }
+  #hero .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  #hero .content h1 {
+    text-align: center;
+    font-size: clamp(2rem, 5vw, 4rem);
+    color: white;
+    width: clamp(300px, 60vw, 80%);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: goUp 1s cubic-bezier(0, 0.55, 0.45, 1) forwards;
+  }
+  .btn {
+    padding: 1rem;
+    border-radius: 0.3rem;
+    text-decoration: none;
+  }
+  .btn-light {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    color: white;
+    font-size: 1rem;
+  }
+  .btn-light:hover {
+    background-color: white;
+    color: #2a4f5f;
+  }
+  #hero .buttons {
+    animation: goUp 1s cubic-bezier(0, 0.55, 0.45, 1) 0.5s forwards;
+    opacity: 0;
+  }
+  .text-highlight {
+    position: relative;
+    z-index: 5;
+    color: #937dff;
+    text-shadow: 1px 2px 10px #555;
+  }
+  .text-highlight:after {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 30px;
+    background: #fc466b; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #00d2ff, hsla(181, 100%, 44%, 1)); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to right,
+      #00d2ff,
+      hsla(181, 100%, 44%, 1)
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    opacity: 0.5;
+    z-index: -1;
+    animation: fullWidth 1s cubic-bezier(0, 0.55, 0.45, 1) 0.5s forwards;
+  }
+  @keyframes fullWidth {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  @keyframes goUp {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
