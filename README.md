@@ -36,12 +36,11 @@ You can use starback.js directly with `<script>` tag or import syntax.
 <script>
   const canvas = document.getElementById('canvas')
   const starback = new Starback(canvas, {
-    type: 'dot', // Important! Use type 'dot' or 'line'
-    width: 1000, 
-    height: 500,
-    randomOpacity: true,
-    speed: 0.5,
-    // ...and the other options
+      type: 'dot',
+      quantity: 100,
+      direction: 225,
+      backgroundColor: ['#0e1118', '#232b3e'],
+      randomOpacity: true,
   })
 </script>
 ```
