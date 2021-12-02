@@ -52,7 +52,7 @@ You can check the more options in [Options section](#options)
 
 | Key  | Type   | Description          | Required | Default Value|
 | --------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------------------- |
-| type | String | **Required.** Star type to use. The values are 'dot' or 'line' | true | 800    |
+| type | String | **Required.** Star type to use. The values are 'dot' or 'line' | true |    |
 | width| Number | Canvas width to set  | no | 800    |
 | height    | Number | Canvas height to set | no | 600    |
 | backgroundColor | String&#124;Array | Color of the background, use string for solid color, or array of colors for linear gradient | no | #ccc   |
