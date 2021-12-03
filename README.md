@@ -1,6 +1,8 @@
 ![Starbackjs](https://user-images.githubusercontent.com/45036724/144230732-9104dc0e-c4fe-4c5c-9990-6693f4c0400c.gif)
 ![Starbackjs Demo Night](https://user-images.githubusercontent.com/45036724/144230828-076a39ae-cc2a-4096-803d-a9bbb49b1d58.gif)
 
+Click for [more examples](https://zuramai.github.io/starback.js/)
+
 ## Getting Started
 You can use starback.js directly with `<script>` tag or import syntax.
 - With `<script>` tag

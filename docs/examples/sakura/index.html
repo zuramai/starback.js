@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snowfall demo - Starback.js</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@400;500;900&family=Noto+Sans+JP&family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+
+        <section id="hero">
+            <div class="hero-left">
+                <div class="text">
+                    <h1 class="kanji"><span>桜</span></h1>
+                    <h1 class="big-text mb-5">SAKURA BLOSSOM</h1>
+                    <p class="mb-5">What’s the most beautiful tree you’ve ever seen? Are you picturing the California redwoods? Still others would say the most beautiful tree they’ve ever seen is the cherry blossom tree. </p>
+                </div>
+                <div class="hiragana">さくら</div>
+            </div>
+            <div class="hero-right">
+                <div class="canvas-wrapper">
+                    <canvas id="canvas"></canvas>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://unpkg.com/starback@2.0.1/dist/starback.js"></script>
+  
+    <script>
+        let wrapper = document.querySelector('.canvas-wrapper')
+
+        const starback = new Starback("#canvas", {
+            width: wrapper.clientWidth,
+            height: wrapper.clientHeight,
+            type: 'dot',
+            quantity: 100,
+            starSize: [1,5],
+            direction: 20,
+            starColor: '#e19bc7',
+            randomOpacity: [0.7, 1],
+            backgroundColor: 'transparent'
+        })
+
+    </script>
+</body>
+</html>
