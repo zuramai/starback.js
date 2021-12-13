@@ -3,6 +3,8 @@
 
 Click for [more examples](https://zuramai.github.io/starback.js/)
 
+# Starback.js
+
 ## Getting Started
 You can use starback.js directly with `<script>` tag or import syntax.
 - With `<script>` tag
