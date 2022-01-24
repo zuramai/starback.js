@@ -60,7 +60,7 @@ You can check the more options in [Options section](#options)
 | width| Number | Canvas width to set  | no | 800    |
 | height    | Number | Canvas height to set | no | 600    |
 | backgroundColor | String&#124;Array | Color of the background, use string for solid color, or array of colors for linear gradient | no | #ccc   |
-| quantity        | Boolean | Number of stars to show | 100 | false        |
+| quantity        | Number | Number of stars to show | no | 100        |
 | showFps         | Boolean | Show FPS on the top left screen | no       | false        |
 | speed | Number | Star speed | no       | 0.5          |
 | starSize        | Number&#124;Array | Use number for fixed star size. Use [minSize, maxSize] value for random the size within the range | no       | [0, 3] for `type: dot`, 100 for `type: line`          |
