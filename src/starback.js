@@ -29,6 +29,12 @@ export default class Starback {
    */
   stars = null
 
+  /**
+   * Canvas element
+   * @type {HTMLCanvasElement}
+   */
+  canvas = null
+
   starTypes = {
     'dot': Dot,
     'line': Line
@@ -40,15 +46,15 @@ export default class Starback {
    * @param {Object} options
    */
   constructor(canvas, config = {}) {
-    this.canvas = canvas instanceof HTMLElement ? canvas : document.querySelector(canvas)
+    this.canvas = canvas instanceof HTMLCanvasElement ? canvas : document.querySelector(canvas)
+
+
     /** @type {CanvasRenderingContext2D} */
     this.ctx = this.canvas.getContext('2d')
-
 
     // merge config
     this.mergeConfig(config)
 
-    //
     this.repeat = 0
 
     // storing callbacks
@@ -64,33 +70,18 @@ export default class Starback {
 
     this.init()
   }
+
   /**
    * Merge Config
    * @param  {StarbackDefaultConfig|object} instanceConfig
    */
   mergeConfig(instanceConfig) {
     // merge config
-    let config = Object.assign(StarbackDefaultConfig, instanceConfig)
+    let config = {...StarbackDefaultConfig, ...instanceConfig}
     
     // apply config
     this.config = config
-    // this.width = config.width
-    // this.height = config.height
-    // this.speed = config.speed
-    // this.direction = config.direction
-    // // this.directionY = config.directionY
-    // // this.directionX = config.directionX
-    // this.starColor = config.starColor
-    // this.maxStar = config.maxStar
-    // this.slope = config.slope
-    // this.starSize = config.starSize
-    // this.showFps = config.showFps
-    // this.config.backgroundColor = config.backgroundColor
-    // this.distanceX = config.distanceX
-    // this.frequency = config.frequency
-    // this.randomOpacity = config.randomOpacity
-    // this.spread = config.spread
-    // this.type = config.type
+    console.log(this.config);
   }
 
   /**
@@ -99,12 +90,13 @@ export default class Starback {
   init() {
     this.canvas.setAttribute('width', this.config.width)
     this.canvas.setAttribute('height', this.config.height)
-    this.stars = new this.starTypes[this.config.type](canvas, this.config)
+    this.stars = new this.starTypes[this.config.type](this.canvas, this.config)
 
     this.config = Object.assign(this.stars.defaultConfig, this.config)
     this.stars.config = this.config
 
     this.generateStar()
+    console.log(this.canvas)
 
     requestAnimationFrame((t) => this.render(t))
   }
