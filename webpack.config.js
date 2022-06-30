@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.ts',
   output: {
     filename: 'starback.js',
     library: {
@@ -15,13 +15,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        test: /\.ts?$/,
         exclude: /(node_modules)/,
-        use: 'babel-loader',
+        use: 'ts-loader',
       },
     ],
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.ts'],
   },
 }

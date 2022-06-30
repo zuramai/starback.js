@@ -1,16 +1,14 @@
-import Starback from ".."
-import { cosDeg, randomArr, randomNumber, sinDeg } from './../utils'
+import { StarDotConfig, StarType } from "../types"
+import { cosDeg, randomArr, randomNumber, sinDeg } from '../utils'
 
-class Dot {
+class Dot implements StarType {
     /**
      * Collection of stars
      * @param
      */
     stars = []
-    config = {}
-    overflowSize = 10
-
-    defaultConfig = {
+    type: 'dot'
+    config: StarDotConfig = {
         quantity: 100,
         direction: 100,
         speed: [0.5, .8],
@@ -18,6 +16,8 @@ class Dot {
         starColor: 'white',
         starSize: [0, 3],
     }
+    overflowSize = 10
+
 
     /** @type {HTMLCanvasElement} */
     canvas = null
@@ -26,11 +26,13 @@ class Dot {
     ctx = null
     
     constructor(canvas, config) {
-        this.config = config
+        this.config = {...this.config, ...config}
         this.canvas = canvas
         this.ctx = canvas.getContext('2d')
+        
     }
     draw() {
+        
         for(let i = 0; i < this.stars.length; i++) {
             let star = this.stars[i]
             
@@ -110,6 +112,7 @@ class Dot {
         }
     }
     generate(amount, location = null) {
+        
         // Generate star in specific location
         if(location) {
             let { x, y } = location
@@ -124,7 +127,7 @@ class Dot {
             return this.stars.push(newStar)
             
         }
-
+        
         // If no location provided, it will generate stars in random locations.
         for(let i = 0; i < amount; i++) {
             let x = randomNumber(0, this.canvas.width)
@@ -152,7 +155,9 @@ class Dot {
             return (Math.random() * (opacity[1] - opacity[0]) + opacity[0]).toFixed(2)
     }
     randomSpeed() {
-        return typeof this.config.speed == 'object' ? Math.random() * (this.config.speed[1] - this.config.speed[0]) + this.config.speed[0] : this.config.speed
+        const speed = this.config.speed
+        
+        return typeof Array.isArray(speed) ? Math.random() * (speed[1] - speed[0]) + speed[0] : speed
     }
 }
 

@@ -1,3 +1,4 @@
+import { StarbackConfig, StarbackInterface, StarType } from "./types"
 import Dot from "./types/dot"
 import Line from "./types/line"
 
@@ -5,7 +6,7 @@ import Line from "./types/line"
  * Default Config
  * @type {Object}
  */
-export const StarbackDefaultConfig = {
+const StarbackDefaultConfig: StarbackConfig = {
   width: 800,
   height: 600,
   
@@ -18,85 +19,72 @@ export const StarbackDefaultConfig = {
  * Starback class wrapper
  * @class Starback
  */
-export default class Starback {
+export default class Starback implements StarbackInterface {
   static DefaultConfig = StarbackDefaultConfig
-
-  config = {}
-
-  /**
-   * Stores stars' class
-   * @type {Dot|Line}
-   */
-  stars = null
-
-  /**
-   * Canvas element
-   * @type {HTMLCanvasElement}
-   */
-  canvas = null
-
-  starTypes = {
+  
+  private ctx
+  public config: StarbackConfig = {}
+  public stars: StarType = null
+  public canvas = null
+  public starTypes = {
     'dot': Dot,
     'line': Line
   }
+  public fps = 0
+  private repeat = 0
+
+  private lastCalledTime = 0
+  private lastGenerated = 0
+  private frontCallbacks: Function[] = []
+  private behindCallbacks: Function[] = []
+
 
   /**
    * Starback library
    * @param {HTMLElement|string} Canvas element or the selector
    * @param {Object} options
    */
-  constructor(canvas, config = {}) {
+  constructor(canvas: HTMLCanvasElement|string, config = {}) {
     this.canvas = canvas instanceof HTMLCanvasElement ? canvas : document.querySelector(canvas)
 
-
-    /** @type {CanvasRenderingContext2D} */
     this.ctx = this.canvas.getContext('2d')
 
     // merge config
     this.mergeConfig(config)
 
-    this.repeat = 0
-
     // storing callbacks
     this.frontCallbacks = []
     this.behindCallbacks = []
 
-    // for calculating fps
-    this.fps = 0
-    this.lastCalledTime = 0
-
-    // time tracking
-    this.lastGenerated = 0
 
     this.init()
+  }
+
+  static create(canvas: HTMLCanvasElement|string, config: StarbackConfig = {}) {
+    return new Starback(canvas, config)
   }
 
   /**
    * Merge Config
    * @param  {StarbackDefaultConfig|object} instanceConfig
    */
-  mergeConfig(instanceConfig) {
+  private mergeConfig(instanceConfig) {
     // merge config
     let config = {...StarbackDefaultConfig, ...instanceConfig}
     
     // apply config
     this.config = config
-    console.log(this.config);
   }
 
   /**
    * Initialize canvas before render
    */
-  init() {
+  private init() {
     this.canvas.setAttribute('width', this.config.width)
     this.canvas.setAttribute('height', this.config.height)
     this.stars = new this.starTypes[this.config.type](this.canvas, this.config)
 
-    this.config = Object.assign(this.stars.defaultConfig, this.config)
-    this.stars.config = this.config
-
     this.generateStar()
-    console.log(this.canvas)
 
     requestAnimationFrame((t) => this.render(t))
   }
@@ -105,7 +93,7 @@ export default class Starback {
   /**
    * Set background for the whole canvas
    */
-  setBackground() {
+  private setBackground() {
     let bg
 
     if (typeof this.config.backgroundColor == 'string') bg = this.config.backgroundColor
@@ -123,7 +111,7 @@ export default class Starback {
   /**
    * Draw the frame into the canvas
    */
-  draw() {
+  private draw() {
     this.behindCallbacks.forEach(cb => cb(this.ctx))
     this.stars.draw()
     this.frontCallbacks.forEach(cb => cb(this.ctx))
@@ -135,7 +123,7 @@ export default class Starback {
   /**
    * Update everything in the canvas frame including stars
    */
-  update() {
+  private update() {
     this.stars.update()
   }
 
@@ -166,9 +154,8 @@ export default class Starback {
   /**
    * Draw the FPS in the canvas.
    */
-  drawFps() {
+  private drawFps() {
     this.ctx.fillStyle = 'white'
-    console.log(this.fps)
     this.ctx.fillText(`${this.fps} fps`, 10, 10)
   }
 
@@ -177,7 +164,7 @@ export default class Starback {
    * Canvas render function
    * @param {DOMHighResTimeStamp} timestamp 
    */
-  render(timestamp) {
+  private render(timestamp) {
     if (!this.lastCalledTime) this.lastCalledTime = timestamp
 
     let deltaTime = timestamp - this.lastCalledTime

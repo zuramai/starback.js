@@ -1,21 +1,14 @@
-import {  randomArr, randomNumber } from './../utils'
+import { StarLineConfig, StarType } from '../types'
+import {  randomArr, randomNumber } from '../utils'
 
-class Line {
+class Line implements StarType {
     /**
      * Collection of stars
      * @param
      */
     stars = []
-    config = null
-    direction = 225
-
-    /** @type {HTMLCanvasElement} */
-    canvas = null
-
-    /** @type {CanvasRenderingContext2D} */
-    ctx = null
-
-    defaultConfig = {
+    config: StarLineConfig = {
+      type: 'line',  
       slope: { x: 1, y: 1},
       frequency: 10,
       speed: 2,
@@ -27,10 +20,16 @@ class Line {
       distanceX: 0.1,
       quantity: 200
     }
+    direction = 225
 
+    /** @type {HTMLCanvasElement} */
+    canvas = null
+
+    /** @type {CanvasRenderingContext2D} */
+    ctx = null
+  
     constructor(canvas, config) {
-      this.config = config
-      this.direction = this.config.direction
+      this.config = {...this.config, ...config}
       this.canvas = canvas
       this.ctx = canvas.getContext('2d')
     }
@@ -39,7 +38,7 @@ class Line {
         this.stars.forEach((star) => {
           // draw the stars
           let starColor
-          if (typeof this.config.starColor == 'object') {
+          if (Array.isArray(this.config.starColor)) {
               starColor = this.ctx.createLinearGradient(0, 0, this.canvas.width, this.canvas.height)
               this.config.starColor.forEach((color, index) => starColor.addColorStop(index / this.config.starColor.length, color))
           } else starColor = this.config.starColor
