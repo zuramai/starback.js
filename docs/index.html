@@ -6,20 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create a Beautiful Background | Starback.js Demo</title>
     <link rel="stylesheet" href="css/style.css" />
-    <meta name="description" content="Create a beautiful falling star background easily with Javascript. Lightweight and zero depedency.">
+    <meta
+      name="description"
+      content="Create a beautiful falling star background easily with Javascript. Lightweight and zero depedency."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400&display=swap" rel="stylesheet" />
 
-    <meta name="desc">
+    <meta name="desc" />
   </head>
   <body>
     <section id="hero">
       <canvas id="canvas"></canvas>
 
       <div class="content">
-        <h1>Make a Beautiful <span class="text-highlight">Background</span> with Starback.js</h1>
+        <h1>Make a Beaautiful <span class="text-highlight">Background</span> with Starback.js</h1>
         <div class="buttons">
           <a href="https://github.com/zuramai/starback.js" class="btn btn-light">Documentation</a>
         </div>
@@ -30,32 +33,34 @@
           <div class="examples">
             <div class="example">
               <a href="examples/snowfall">
-                <img src="examples/snowfall/demo.gif" alt="Starfall">
+                <img src="examples/snowfall/demo.gif" alt="Starfall" />
               </a>
             </div>
             <div class="example">
               <a href="examples/starfall">
-                <img src="https://user-images.githubusercontent.com/45036724/130007266-83c720b8-ce3f-47e8-a854-ac0b640ce36f.gif" alt="Starfall">
+                <img
+                  src="https://user-images.githubusercontent.com/45036724/130007266-83c720b8-ce3f-47e8-a854-ac0b640ce36f.gif"
+                  alt="Starfall"
+                />
               </a>
             </div>
             <div class="example">
               <a href="examples/sakura">
-                <img src="https://user-images.githubusercontent.com/45036724/144608949-c997c9f5-f880-4683-8207-625c644cbee6.gif" alt="Sakura">
+                <img
+                  src="https://user-images.githubusercontent.com/45036724/144608949-c997c9f5-f880-4683-8207-625c644cbee6.gif"
+                  alt="Sakura"
+                />
               </a>
             </div>
           </div>
-          <p class="crafted">
-            Crafted by <a target="_blank" href="https://github.com/zuramai">Saugi</a>
-          </p>
+          <p class="crafted">Crafted by <a target="_blank" href="https://github.com/zuramai">Saugi</a></p>
         </div>
       </div>
     </section>
 
-
-    <script src="./starback.js"></script>
+    <script src="./starback.global.js"></script>
 
     <script>
-      console.log(Starback);
       const canvas = document.getElementById('canvas')
 
       const starback = new Starback(canvas, {
@@ -86,7 +91,6 @@
           )
         })
       }
-
     </script>
   </body>
 </html>
