@@ -1,6 +1,6 @@
 {
   "name": "starback",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Create a beautiful star falling animation for HTML5 background",
   "main": "dist/starback.js",
   "module": "dist/starback.mjs",
