@@ -1,66 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starfall demo - Starback.js</title>
-    <link rel="stylesheet" href="css/style.css">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starfall demo - Starback.js</title>
+  <link rel="stylesheet" href="css/style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet" />
 </head>
+
 <body>
-    <div id="app">
-        <section id="hero">
-            <canvas id="canvas"></canvas>
-      
-            <div class="content">
-              <h1>Make a Beautiful <span class="text-highlight">Background</span> with Starback.js</h1>
-              <div class="buttons">
-                <a href="https://github.com/zuramai/starback.js" class="btn btn-light">Documentation</a>
-              </div>
-            </div>
-        </section>
-    </div>
+  <div id="app">
+    <section id="hero">
+      <canvas id="canvas"></canvas>
 
-    <script src="/starback.global.js"></script>
+      <div class="content">
+        <h1>Make a Beautiful <span class="text-highlight">Background</span> with Starback.js</h1>
+        <div class="buttons">
+          <a href="https://github.com/zuramai/starback.js" class="btn btn-light">Documentation</a>
+        </div>
+      </div>
+    </section>
+  </div>
 
-    <script>
-        const starback = new Starback("#canvas", {
-            width: document.body.clientWidth,
-            height: document.body.clientHeight,
-            type: 'line',
-            speed: 5,
-            frequency: 5,
-            slope: { x: -1, y: 10 },
-            directionX: 1,
-            speed: 3,
-            spread: -10,
-            randomOpacity: true,
-            backgroundColor: ['#0F2027', '#203A43', '#2C5364'],
-            quantity: 30,
-        })
+  <script src="https://unpkg.com/starback@2.1.0/dist/starback.js"></script>
 
-        let mountain = new Image()
-        mountain.src = 'images/mountain2.png'
+  <script>
+    const starback = new Starback("#canvas", {
+      width: document.body.clientWidth,
+      height: document.body.clientHeight,
+      type: 'line',
+      speed: 5,
+      frequency: 5,
+      slope: { x: -1, y: 10 },
+      directionX: 1,
+      speed: 3,
+      spread: -10,
+      randomOpacity: true,
+      backgroundColor: ['#0F2027', '#203A43', '#2C5364'],
+      quantity: 30,
+    });
 
-        mountain.onload = () => {
-        starback.addToFront((ctx) => {
-            ctx.drawImage(
-            mountain,
-            0,
-            0,
-            mountain.width,
-            mountain.height,
-            0,
-            canvas.height - mountain.height,
-            canvas.width,
-            mountain.height
-            )
-        })
-        }
-    </script>
+    let mountain = new Image();
+    mountain.src = 'images/mountain2.png';
+
+    mountain.onload = () => {
+      starback.addToFront((ctx) => {
+        ctx.drawImage(
+          mountain,
+          0,
+          0,
+          mountain.width,
+          mountain.height,
+          0,
+          canvas.height - mountain.height,
+          canvas.width,
+          mountain.height
+        );
+      });
+    }
+  </script>
 </body>
+
 </html>

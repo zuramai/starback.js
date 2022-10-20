@@ -1,96 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create a Beautiful Background | Starback.js Demo</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <meta
-      name="description"
-      content="Create a beautiful falling star background easily with Javascript. Lightweight and zero depedency."
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400&display=swap" rel="stylesheet" />
 
-    <meta name="desc" />
-  </head>
-  <body>
-    <section id="hero">
-      <canvas id="canvas"></canvas>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create a Beautiful Background | Starback.js Demo</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="description"
+    content="Create a beautiful falling star background easily with Javascript. Lightweight and zero depedency." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400&display=swap" rel="stylesheet" />
 
-      <div class="content">
-        <h1>Make a Beaautiful <span class="text-highlight">Background</span> with Starback.js</h1>
-        <div class="buttons">
-          <a href="https://github.com/zuramai/starback.js" class="btn btn-light">Documentation</a>
-        </div>
+  <meta name="desc" />
+</head>
 
-        <div class="examples-section">
-          <p>More examples:</p>
+<body>
+  <section id="hero">
+    <canvas id="canvas"></canvas>
 
-          <div class="examples">
-            <div class="example">
-              <a href="examples/snowfall">
-                <img src="examples/snowfall/demo.gif" alt="Starfall" />
-              </a>
-            </div>
-            <div class="example">
-              <a href="examples/starfall">
-                <img
-                  src="https://user-images.githubusercontent.com/45036724/130007266-83c720b8-ce3f-47e8-a854-ac0b640ce36f.gif"
-                  alt="Starfall"
-                />
-              </a>
-            </div>
-            <div class="example">
-              <a href="examples/sakura">
-                <img
-                  src="https://user-images.githubusercontent.com/45036724/144608949-c997c9f5-f880-4683-8207-625c644cbee6.gif"
-                  alt="Sakura"
-                />
-              </a>
-            </div>
-          </div>
-          <p class="crafted">Crafted by <a target="_blank" href="https://github.com/zuramai">Saugi</a></p>
-        </div>
+    <div class="content">
+      <h1>Make a Beautiful <span class="text-highlight">Background</span> with Starback.js</h1>
+      <div class="buttons">
+        <a href="https://github.com/zuramai/starback.js" class="btn btn-light">Documentation</a>
       </div>
-    </section>
 
-    <script src="./starback.global.js"></script>
+      <div class="examples-section">
+        <p>More examples:</p>
 
-    <script>
-      const canvas = document.getElementById('canvas')
+        <div class="examples">
+          <div class="example">
+            <a href="examples/snowfall">
+              <img src="examples/snowfall/demo.gif" alt="Starfall" />
+            </a>
+          </div>
+          <div class="example">
+            <a href="examples/starfall">
+              <img
+                src="https://user-images.githubusercontent.com/45036724/130007266-83c720b8-ce3f-47e8-a854-ac0b640ce36f.gif"
+                alt="Starfall" />
+            </a>
+          </div>
+          <div class="example">
+            <a href="examples/sakura">
+              <img
+                src="https://user-images.githubusercontent.com/45036724/144608949-c997c9f5-f880-4683-8207-625c644cbee6.gif"
+                alt="Sakura" />
+            </a>
+          </div>
+        </div>
+        <p class="crafted">Crafted by <a target="_blank" href="https://github.com/zuramai">Saugi</a></p>
+      </div>
+    </div>
+  </section>
 
-      const starback = new Starback(canvas, {
-        width: document.body.clientWidth,
-        height: document.body.clientHeight,
-        type: 'dot',
-        quantity: 100,
-        direction: 225,
-        backgroundColor: ['#0e1118', '#232b3e'],
-        randomOpacity: true,
-      })
+  <script src="https://unpkg.com/starback@2.1.0/dist/starback.js"></script>
 
-      let mountain = new Image()
-      mountain.src = 'examples/starfall/images/mountain2.png'
+  <script>
+    const canvas = document.getElementById('canvas');
 
-      mountain.onload = () => {
-        starback.addToFront((ctx) => {
-          ctx.drawImage(
-            mountain,
-            0,
-            0,
-            mountain.width,
-            mountain.height,
-            0,
-            canvas.height - mountain.height,
-            canvas.width,
-            mountain.height
-          )
-        })
-      }
-    </script>
-  </body>
+    const starback = new Starback(canvas, {
+      width: document.body.clientWidth,
+      height: document.body.clientHeight,
+      type: 'dot',
+      quantity: 100,
+      direction: 225,
+      backgroundColor: ['#0e1118', '#232b3e'],
+      randomOpacity: true,
+    });
+
+    let mountain = new Image();
+    mountain.src = 'examples/starfall/images/mountain2.png';
+
+    mountain.onload = () => {
+      starback.addToFront((ctx) => {
+        ctx.drawImage(
+          mountain,
+          0,
+          0,
+          mountain.width,
+          mountain.height,
+          0,
+          canvas.height - mountain.height,
+          canvas.width,
+          mountain.height
+        );
+      });
+    }
+  </script>
+</body>
+
 </html>
