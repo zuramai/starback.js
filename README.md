@@ -88,7 +88,7 @@ You can check the more options in [Options section](#options)
 
 | Name   | Parameter         | Description      |
 | ---------------------------- | --------------------------------------- | ------------------------------------------------- |
-| `generateStar(amount)`       | amount | The quantity of stars that will be shown          |
+| `generateStar(amount)`       | amount: number | The quantity of stars that will be shown          |
 | `addToFront(callback(ctx))`  | function(ctx: CanvasRenderingContext2D) | Add to front of the falling star by given context |
 | `addToBehind(callback(ctx))` | function(ctx: CanvasRenderingContext2D) | Add to back of the falling star by given context  |
 
