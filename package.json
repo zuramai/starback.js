@@ -4,7 +4,7 @@
   "description": "Create a beautiful star falling animation for HTML5 background",
   "main": "dist/starback.js",
   "module": "dist/starback.mjs",
-  "types": "dist/starback.d.ts",
+  "types": "dist/index.d.ts",
   "unpkg": "dist/starback.global.js",
   "jsdelivr": "dist/starback.global.js",
   "bugs": {
@@ -17,7 +17,6 @@
     "tsup": "tsup",
     "build": "nr tsup --minify && cp ./dist/starback.global.js docs/",
     "prepublishOnly": "nr build",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "release": "bumpp package.json --tag --commit --push && npm publish --access public"
   },
   "repository": "https://github.com/zuramai/starback.js",
@@ -26,6 +25,7 @@
   "devDependencies": {
     "@antfu/ni": "^0.17.2",
     "@babel/core": "^7.20.2",
+    "@types/node": "^18.11.9",
     "browser-sync": "^2.27.10",
     "browser-sync-webpack-plugin": "^2.3.0",
     "bumpp": "^7.2.0",
