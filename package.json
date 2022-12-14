@@ -14,7 +14,7 @@
   "scripts": {
     "dev": "nr tsup --watch",
     "docs": "webpack --watch",
-    "tsup": "tsup",
+    "tsup": "tsup && cp ./dist/starback.global.js docs/",
     "build": "nr tsup --minify && cp ./dist/starback.global.js docs/",
     "prepublishOnly": "nr build",
     "release": "bumpp package.json --tag --commit --push && npm publish --access public"

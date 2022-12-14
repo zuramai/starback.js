@@ -5,7 +5,7 @@ const path = require('path')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 module.exports = {
-  entry: './docs/starback.js',
+  entry: './docs/starback.global.js',
   mode: 'development',
   resolve: {
     extensions: ['.ts'],
