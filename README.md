@@ -5,6 +5,22 @@ Click for [more examples](https://zuramai.github.io/starback.js/)
 
 # Starback.js
 
+
+<table>
+	<tr>
+		<th>Sponsored by</th>
+	</tr>
+	<tr>
+		<td>
+		<p align="center">
+			<a href="https://lokal.so/?ref=zuramai">
+				<img src="https://github.com/zuramai/zuramai/blob/master/sponsors/lokalso.png?raw=true"  width="50%">
+			</a>
+		</p>	
+		</td>
+	</tr>
+</table>
+
 ## Getting Started
 You can use starback.js directly with `<script>` tag or import syntax.
 - With `<script>` tag
